@@ -18,11 +18,11 @@ type Config struct {
 func Load() Config {
 	return Config{
 		HTTPAddr:      env("HTTP_ADDR", ":8080"),
-		HTTPTimeout:   duration("HTTP_TIMEOUT", 2*time.Minute),
+		HTTPTimeout:   duration("HTTP_TIMEOUT", 5*time.Minute),
 		MaxFileSize:   int64Value("MAX_FILE_SIZE", 20*1024*1024),
 		OllamaURL:     env("OLLAMA_URL", "http://localhost:11434"),
 		OllamaModel:   env("OLLAMA_MODEL", "qwen3:8b"),
-		OllamaTimeout: duration("OLLAMA_TIMEOUT", 2*time.Minute),
+		OllamaTimeout: duration("OLLAMA_TIMEOUT", 5*time.Minute),
 	}
 }
 
