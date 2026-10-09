@@ -42,11 +42,15 @@ func (PDFParser) Parse(data []byte) (model.Document, error) {
 	if err != nil {
 		return model.Document{}, fmt.Errorf("open pdf: %w", err)
 	}
-	text, err := reader.GetPlainText()
+	textReader, err := reader.GetPlainText()
 	if err != nil {
 		return model.Document{}, fmt.Errorf("extract pdf text: %w", err)
 	}
-	return model.Document{Text: strings.TrimSpace(text), Format: "pdf"}, nil
+	var textBuffer bytes.Buffer
+	if _, err := textBuffer.ReadFrom(textReader); err != nil {
+		return model.Document{}, fmt.Errorf("read extracted pdf text: %w", err)
+	}
+	return model.Document{Text: strings.TrimSpace(textBuffer.String()), Format: "pdf"}, nil
 }
 
 type DOCXParser struct{}
