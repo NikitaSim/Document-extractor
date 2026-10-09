@@ -55,7 +55,7 @@ func (h *Handler) Extract(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ctx, cancel := contextWithTimeout(r, 2*time.Minute)
+	ctx, cancel := contextWithTimeout(r, 5*time.Minute)
 	defer cancel()
 	result, err := h.service.Extract(ctx, header.Filename, data)
 	if err != nil {
